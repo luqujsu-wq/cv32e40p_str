@@ -152,7 +152,7 @@ module cv32e40p_ex_stage
     input  logic wb_ready_i,  // WB stage ready for new data
 
     //TEST
-    input  logic str_operator_ex_i,
+    input  logic [STR_OP_WIDTH-1:0] str_operator_ex_i,
 	  input  logic str_op_en_ex_i
 );
 
@@ -304,6 +304,14 @@ module cv32e40p_ex_stage
       .ex_ready_i  (ex_ready_o)
   );
 
+  //TEST
+  riscv_str_ops riscv_str_ops_i
+  (
+    .clk                 ( clk             ),
+    .enable_i            ( str_op_en_ex_i     ),
+    .operator_i          ( str_operator_ex_i  )
+  );
+
   generate
     if (FPU == 1) begin : gen_apu
       ////////////////////////////////////////////////////
@@ -347,14 +355,6 @@ module cv32e40p_ex_stage
           .apu_gnt_i   (apu_gnt),
           // response channel
           .apu_rvalid_i(apu_valid)
-      );
-
-      //TEST
-      riscv_str_ops riscv_str_ops_i
-      (
-      .clk                 ( clk             ),
-      .enable_i            ( str_opstr_op_en_ex_i_en_i     ),
-      .operator_i          ( str_operator_ex_i  )
       );
 
       assign apu_perf_wb_o   = wb_contention | wb_contention_lsu;

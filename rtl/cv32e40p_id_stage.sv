@@ -251,7 +251,7 @@ module cv32e40p_id_stage
     input logic [31:0] mcounteren_i,
 
     //TEST
-    output logic str_operator_id_o,
+    output logic [STR_OP_WIDTH-1:0] str_operator_id_o,
 	  output logic str_op_en_id_o
 );
 
@@ -1617,7 +1617,7 @@ module cv32e40p_id_stage
         alu_en_ex_o          <= 1'b1;
 
         //TEST
-        str_op_en_id_o       <= 1'b1;
+        str_op_en_id_o       <= 1'b0;
         str_operator_id_o    <= STR_OP_UPPER;
       end else if (csr_access_ex_o) begin
         //In the EX stage there was a CSR access, to avoid multiple
