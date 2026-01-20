@@ -154,8 +154,6 @@ module cv32e40p_decoder import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*;
   //TEST
   output logic [STR_OP_WIDTH-1:0] str_operator_o,
 	output logic str_op_en_o
-  
-
 );
 
   // write enable/request control

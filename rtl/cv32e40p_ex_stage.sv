@@ -153,7 +153,10 @@ module cv32e40p_ex_stage
 
     //TEST
     input  logic [STR_OP_WIDTH-1:0] str_operator_ex_i,
-	  input  logic str_op_en_ex_i
+	  input  logic str_op_en_ex_i,
+
+    input logic [31:0] str_operand_ex_i,
+    output logic [31:0] str_op_result_ex
 );
 
   logic [31:0] alu_result;
@@ -309,7 +312,10 @@ module cv32e40p_ex_stage
   (
     .clk                 ( clk             ),
     .enable_i            ( str_op_en_ex_i     ),
-    .operator_i          ( str_operator_ex_i  )
+    .operator_i          ( str_operator_ex_i  ),
+
+    .operand_i           ( str_operand_ex_i   ),
+	  .result_o            ( str_op_result_ex   )
   );
 
   generate

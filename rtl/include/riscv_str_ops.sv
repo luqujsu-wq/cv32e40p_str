@@ -29,6 +29,6 @@ import cv32e40p_pkg::*;
 
 	always_comb begin
     	result_o = enable_i ? operand_i : 32'b0;
-  end
+  	end
 // git try
     endmodule

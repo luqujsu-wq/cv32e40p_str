@@ -357,7 +357,7 @@ module cv32e40p_core
   logic                           instr_err_pmp;
 
   //TEST
-  logic str_operator_id_o_ex_in;
+  logic [STR_OP_WIDTH-1:0] str_operator_id_o_ex_in;
 	logic str_op_en_id_o_ex_in;
 
   // Mux selector for vectored IRQ PC

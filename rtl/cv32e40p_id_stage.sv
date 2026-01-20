@@ -487,7 +487,7 @@ module cv32e40p_id_stage
   logic perf_pipeline_stall;
 
   //TEST
-  logic str_operator_o;
+  logic [STR_OP_WIDTH-1:0] str_operator_o;
   logic str_op_en_o;
 
   assign instr = instr_rdata_i;
@@ -1509,10 +1509,14 @@ module cv32e40p_id_stage
         //TEST
         str_op_en_id_o <= str_op_en_o;
 
+          //TEST
+        if(str_op_en_o)begin
+          str_operator_id_o   <= str_operator_o;   
+        end       
+
         if (alu_en) begin
           alu_operator_ex_o   <= alu_operator;
-          //TEST
-          str_operator_id_o   <= str_operator_o;
+
           alu_operand_a_ex_o  <= alu_operand_a;
           alu_operand_b_ex_o  <= alu_operand_b;
           alu_operand_c_ex_o  <= alu_operand_c;
