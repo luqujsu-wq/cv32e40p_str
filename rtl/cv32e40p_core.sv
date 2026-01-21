@@ -359,6 +359,7 @@ module cv32e40p_core
   //TEST
   logic [STR_OP_WIDTH-1:0] str_operator_id_o_ex_in;
 	logic str_op_en_id_o_ex_in;
+  logic [31:0] str_operand_id_o_ex_in;
 
   // Mux selector for vectored IRQ PC
   assign m_exc_vec_pc_mux_id = (mtvec_mode == 2'b0) ? 5'h0 : exc_cause;
@@ -736,7 +737,8 @@ module cv32e40p_core
 
       //TEST
       .str_operator_id_o(str_operator_id_o_ex_in),
-	    .str_op_en_id_o(str_op_en_id_o_ex_in)
+	    .str_op_en_id_o(str_op_en_id_o_ex_in),
+      .str_operand_id_o(str_operand_id_o_ex_in)
   );
 
 
@@ -867,7 +869,8 @@ module cv32e40p_core
 
       //TEST
       .str_operator_ex_i(str_operator_id_o_ex_in),
-	    .str_op_en_ex_i(str_op_en_id_o_ex_in)
+	    .str_op_en_ex_i(str_op_en_id_o_ex_in),
+      .str_operand_ex_i(str_operand_id_o_ex_in)
   );
 
 

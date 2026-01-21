@@ -154,9 +154,7 @@ module cv32e40p_ex_stage
     //TEST
     input  logic [STR_OP_WIDTH-1:0] str_operator_ex_i,
 	  input  logic str_op_en_ex_i,
-
-    input logic [31:0] str_operand_ex_i,
-    output logic [31:0] str_op_result_ex
+    input logic [31:0] str_operand_ex_i
 );
 
   logic [31:0] alu_result;
@@ -205,6 +203,9 @@ module cv32e40p_ex_stage
       if (alu_en_i) regfile_alu_wdata_fw_o = alu_result;
       if (mult_en_i) regfile_alu_wdata_fw_o = mult_result;
       if (csr_access_i) regfile_alu_wdata_fw_o = csr_rdata_i;
+
+      //TEST
+      if (str_op_en_ex_i)regfile_alu_wdata_fw_o = str_op_result_ex;
     end
   end
 
@@ -307,6 +308,7 @@ module cv32e40p_ex_stage
       .ex_ready_i  (ex_ready_o)
   );
 
+  logic [31:0] str_op_result_ex;
   //TEST
   riscv_str_ops riscv_str_ops_i
   (

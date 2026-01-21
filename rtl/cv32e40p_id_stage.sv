@@ -252,7 +252,8 @@ module cv32e40p_id_stage
 
     //TEST
     output logic [STR_OP_WIDTH-1:0] str_operator_id_o,
-	  output logic str_op_en_id_o
+	  output logic str_op_en_id_o,
+    output logic [31:0] str_operand_id_o
 );
 
   // Source/Destination register instruction index
@@ -1415,10 +1416,13 @@ module cv32e40p_id_stage
   always_ff @(posedge clk, negedge rst_n) begin : ID_EX_PIPE_REGISTERS
     if (rst_n == 1'b0) begin
       alu_en_ex_o            <= '0;
+      alu_operator_ex_o      <= ALU_SLTU;  
+
       //TEST
       str_op_en_id_o         <= '0;
-      alu_operator_ex_o      <= ALU_SLTU;
       str_operator_id_o      <= STR_OP_UPPER;
+      str_operand_id_o       <= 'b0;
+
       alu_operand_a_ex_o     <= '0;
       alu_operand_b_ex_o     <= '0;
       alu_operand_c_ex_o     <= '0;
@@ -1511,7 +1515,8 @@ module cv32e40p_id_stage
 
           //TEST
         if(str_op_en_o)begin
-          str_operator_id_o   <= str_operator_o;   
+          str_operator_id_o   <= str_operator_o; 
+          str_operand_id_o    <= alu_operand_a;
         end       
 
         if (alu_en) begin
@@ -1623,6 +1628,7 @@ module cv32e40p_id_stage
         //TEST
         str_op_en_id_o       <= 1'b0;
         str_operator_id_o    <= STR_OP_UPPER;
+        str_operand_id_o     <= 'b0;
       end else if (csr_access_ex_o) begin
         //In the EX stage there was a CSR access, to avoid multiple
         //writes to the RF, disable regfile_alu_we_ex_o.

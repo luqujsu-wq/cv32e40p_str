@@ -11,24 +11,34 @@ import cv32e40p_pkg::*;
 	  output logic [31:0]            result_o
 	);
 
-    always_ff @(posedge clk)
+	logic [31:0] buffer;
+
+    always_comb
 	  begin
 	    if (enable_i) begin
 	      case (operator_i)
-	        STR_OP_UPPER:
+	        STR_OP_UPPER:begin
 	          $display("%t: Exec Upper instruction", $time);
-	        STR_OP_LOWER:
+				buffer = $unsigned(operand_i)-$unsigned(32'h20202020);
+			end
+	        STR_OP_LOWER:begin
 	          $display("%t: Exec Lower instruction", $time);
-	        STR_OP_LEET:
+			  	buffer = operand_i;
+			end
+	        STR_OP_LEET:begin
 	          $display("%t: Exec Leet speak instruction", $time);
-	        STR_OP_ROT13:
+			  	  	buffer = operand_i;
+			end
+	        STR_OP_ROT13:begin
 	          $display("%t: Exec Rot13 instruction", $time);
+			  	  	buffer = operand_i;
+			end
 	      endcase
 	    end
 	end
 
 	always_comb begin
-    	result_o = enable_i ? operand_i : 32'b0;
-  	end
+    	result_o = enable_i ?  buffer: 32'b0;
+  end
 // git try
     endmodule

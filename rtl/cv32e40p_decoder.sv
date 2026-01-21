@@ -2930,27 +2930,31 @@ module cv32e40p_decoder import cv32e40p_pkg::*; import cv32e40p_apu_core_pkg::*;
           str_op_en_o = 1'b1;
           str_operator_o = STR_OP_UPPER;
           rega_used_o = 1'b1;
+          regfile_alu_we      = 1'b1;
         end
         else if (instr_rdata_i[14:12] == 3'b001) begin
           // Lower case
           $display("Decoded lower instruction");
           str_op_en_o = 1'b1;
           str_operator_o = STR_OP_LOWER;
-          rega_used_o = 1'b1;          
+          rega_used_o = 1'b1;     
+          regfile_alu_we      = 1'b1;     
         end
         else if (instr_rdata_i[14:12] == 3'b010) begin
           // Leet speak
           $display("Decoded leet instruction");
           str_op_en_o = 1'b1;
           str_operator_o = STR_OP_LEET;
-          rega_used_o = 1'b1;         
+          rega_used_o = 1'b1;   
+          regfile_alu_we      = 1'b1;      
         end
         else if (instr_rdata_i[14:12] == 3'b011) begin
           // ROT13
           $display("Decoded rot13 instruction");
           str_op_en_o = 1'b1;
           str_operator_o = STR_OP_ROT13;
-          rega_used_o = 1'b1;          
+          rega_used_o = 1'b1;    
+          regfile_alu_we      = 1'b1;      
         end
         else
           illegal_insn_o = 1'b1;
